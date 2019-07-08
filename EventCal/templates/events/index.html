@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Events{% endblock %}
+{% block header %}
+  {% if g.user %}
+    <a class="action" href="{{ url_for('events.settings') }}">Settings</a>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+	<a href="#calendarsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item bg-light">Calendars</a>
+	<ul class="collapse list-unstyled" id="calendarsSubmenu">
+	{% for cal in all_cal %}
+			<li class="list-group-item list-group-item-action bg-light"> {{ cal }}
+	{% endfor %}
+	</ul></a>
+	<a href="#locationSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item bg-light">Locations</a>
+	<ul class="collapse list-unstyled" id="locationSubmenu">
+	{% for loc in all_loc %}
+			<li class="list-group-item list-group-item-action bg-light"> {{ loc }}
+	{% endfor %}
+	</ul></a>
+{% endblock %}
+{% block nav %} 
+	<li class="nav-item active"> <a class="nav-link" href="#">Home</a>
+	{% if g.user %}
+	<li class="nav-item"><a class="nav-link" href="{{ url_for('events.settings') }}">Settings</a>
+		<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+	{% else %}
+		<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+		<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+	{% endif %}
+{% endblock %}
+		
+
+{% block content %}
+<div id="calendar"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    plugins: [ 'interaction', 'dayGrid', 'list'],
+    defaultView: 'dayGridMonth',
+	  height: $(window).height()*0.8,
+    views: {
+      dayGridMonth: {
+        eventLimit: true
+      }
+    },
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,listMonth'
+    },
+    events: {
+		url: 'data'
+	},
+    displayEventTime: false
+  });
+  calendar.render();
+});
+</script>
+{% endblock %}

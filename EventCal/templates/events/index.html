@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %}Events{% endblock %}
-{% block header %}
-  {% if g.user %}
-    <a class="action" href="{{ url_for('events.settings') }}">Settings</a>
-  {% endif %}
-{% endblock %}
 
 {% block sidebar %}
 	<a href="#calendarsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item bg-light">Calendars</a>

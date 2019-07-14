@@ -46,10 +46,3 @@ def update_user(user):
             )
     db.commit()
 
-
-locs = db.execute(
-        'SELECT DISTINCT location FROM events'
-        ).fetchall()
-loclist = [loc['location'] for loc in locs]
-print(loclist)
-# "VALUES ((SELECT user_id FROM users WHERE username= 'Mac'),'Mac', '123', 'hes back', 'hes black')"

@@ -3,7 +3,7 @@ import sqlite3
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-from Acal.query_events import query_all
+from EventCal.query_events import query_all
 
 
 def get_db():

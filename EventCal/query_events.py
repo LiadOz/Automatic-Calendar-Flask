@@ -3,7 +3,12 @@ import datetime
 
 
 def query_all():
-    return query_elections() + query_movies() + query_video_games()
+    queries = (query_elections, query_movies, query_video_games)
+    result = []
+    for f in queries:
+        result += f()
+
+    return result
 
 
 def _get_events(endpoint_url, query):
@@ -22,7 +27,7 @@ def _create_event_tup(new_events, ev_type):
     for ev in new_events:
         if ev['descriptionLabel']['value'] == 'NO_DATA':
             # Emptying the description if doesn't exist
-            ev['descriptionLabel']['value'] = ''
+           ev['descriptionLabel']['value'] = ''
 
         event_list.append({
             'id': ev['title']['value'].split('/')[-1], 'calendar': ev_type, 'location': ev['locationLabel']['value'],

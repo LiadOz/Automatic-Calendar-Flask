@@ -1,0 +1,5 @@
+include EventCal/schema.sql
+include EventCal/events.json
+graft EventCal/static
+graft EventCal/templates
+global-exclude *.pyc

@@ -6,20 +6,27 @@
 	<a href="#calendarsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item bg-light">Calendars</a>
 	<ul class="collapse list-unstyled" id="calendarsSubmenu">
 	{% for cal in all_cal %}
-			<li class="list-group-item list-group-item-action bg-light"> {{ cal }}
+		{% if cal in user_cal %}
+		<li class="list-group-item list-group-item-action bg-light"><a href="{{ url_for('.update', up_type='calendar', val = cal) }}">{{ cal }}-Remove 
+		{% else %}
+		<li class="list-group-item list-group-item-action bg-light"><a href="{{ url_for('.update', up_type='calendar', val=cal) }}">{{ cal }}-Add
+		{% endif %}
 	{% endfor %}
 	</ul></a>
 	<a href="#locationSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item bg-light">Locations</a>
 	<ul class="collapse list-unstyled" id="locationSubmenu">
 	{% for loc in all_loc %}
-			<li class="list-group-item list-group-item-action bg-light"> {{ loc }}
+		{% if loc in user_loc %}
+		<li class="list-group-item list-group-item-action bg-light"><a href="{{ url_for('.update', up_type='location', val=loc) }}">{{ loc }}-Remove 
+		{% else %}
+		<li class="list-group-item list-group-item-action bg-light"><a href="{{ url_for('.update', up_type='location', val=loc) }}">{{ loc }}-Add
+		{% endif %}
 	{% endfor %}
 	</ul></a>
 {% endblock %}
 {% block nav %} 
 	<li class="nav-item active"> <a class="nav-link" href="#">Home</a>
 	{% if g.user %}
-	<li class="nav-item"><a class="nav-link" href="{{ url_for('events.settings') }}">Settings</a>
 		<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
 	{% else %}
 		<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>

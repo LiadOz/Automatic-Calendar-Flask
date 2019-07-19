@@ -54,10 +54,17 @@ def update_user(user, cal, loc):
     if not current_locs[0]:
         current_locs = []
 
+    # if calendar of location given add or remove them from current list
     if cal is not None and cal:
-        current_cals.append(cal)
+        if cal in current_cals:
+            current_cals.remove(cal)
+        else:
+            current_cals.append(cal)
     if loc is not None and loc:
-        current_locs.append(loc)
+        if loc in current_locs:
+            current_locs.remove(loc)
+        else:
+            current_locs.append(loc)
 
     cals = ','.join(current_cals)
     locs = ','.join(current_locs)
